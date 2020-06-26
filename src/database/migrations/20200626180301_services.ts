@@ -6,6 +6,8 @@ export async function up(knex: Knex): Promise<any> {
     table.increments('id');
     table.string('service_name').notNullable().unique();
     table.integer('price');
+    table.timestamp('deleted_at');
+    table.timestamps(true, true);
   });
 }
 

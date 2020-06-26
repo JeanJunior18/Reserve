@@ -15,7 +15,8 @@ router
   .put('/schedules', ScheduleController.reserve)
 
   .get('/services', ServiceController.index)
-  // .post('/services', ServiceController.create)
-  // .put('/services', ServiceController.update)
+  .post('/services', ServiceController.store)
+  .put('/services/:id', ServiceController.update)
+  .delete('/services/:id', ServiceController.delete)
 
 export default router;
