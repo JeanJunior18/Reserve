@@ -1,8 +1,11 @@
 import express from 'express';
 import cors from 'cors';
+import router from './src/router';
 
 const app = express();
 
-app.use(cors());
+app
+  .use(cors())
+  .use(router)
 
-app.listen(3333, ()=>console.log('Runngin on port 3333'));
+  .listen(3333, ()=>console.log('Runngin on port 3333'));
