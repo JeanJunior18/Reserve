@@ -12,6 +12,7 @@ module.exports = {
     },
     seeds: {
       directory: resolve(__dirname, 'src', 'database', 'seeds')
-    }
+    },
+    useNullAsDefault: true,
   },
 };

@@ -4,7 +4,7 @@ import Knex from "knex";
 export async function up(knex: Knex): Promise<any> {
   return knex.schema.createTable('schedules', function (table){
     table.increments('id');
-    table.date('hour').notNullable();
+    table.date('hour').notNullable().unique();
     table.string('name');
     table.string('whatsapp');
     table.boolean('busy');

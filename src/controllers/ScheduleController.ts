@@ -22,5 +22,20 @@ export default {
     } catch (error) {
       next(error)
     }
+  },
+  async reserve(req:Request, res:Response, next:NextFunction){
+    try {
+      const { hour, name, whatsapp } = req.body;
+      
+      const updated = await knex('schedules')
+      .update({ name, whatsapp })
+      .where({ hour })
+
+      return res.json(updated)
+
+    } catch (error) {
+      next(error);
+    }
   }
+
 }
