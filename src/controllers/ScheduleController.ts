@@ -25,11 +25,25 @@ export default {
   },
   async reserve(req:Request, res:Response, next:NextFunction){
     try {
-      const { hour, name, whatsapp } = req.body;
+      const { schedule_id, name, whatsapp, services } = req.body;
+
+      const trx = await knex.transaction();
       
-      const updated = await knex('schedules')
+      const updated = await trx('schedules')
       .update({ name, whatsapp })
-      .where({ hour })
+      .where({ id: schedule_id })
+
+      const services_items = services
+      .map((service_id:number) => {
+        return {
+          schedule_id,
+          service_id
+        }
+      })
+
+
+      await trx('schedules_service').insert(services_items)
+      trx.commit()
 
       return res.json(updated)
 
