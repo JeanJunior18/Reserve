@@ -1,5 +1,7 @@
-import { Request, Response, NextFunction } from 'express'
+import { Request, Response, NextFunction } from 'express';
 import knex from '../database';
+import bcrypt from 'bcryptjs'; 
+
 
 export default {
   async index(req:Request, res:Response, next:NextFunction){
@@ -14,10 +16,15 @@ export default {
     try {
       const { name, email, password } = req.body;
 
+      if((await knex('admin').where({email})).length)
+        return res.status(403).json({error: "Email já cadastrado"})
+      
+      const hash = await bcrypt.hash(password, 5)
+
       await knex('admin').insert({ 
         name,
         email,
-        password,
+        password: hash,
       })
 
       return res.send()
