@@ -2,6 +2,9 @@ import { Request, Response, NextFunction } from 'express';
 import knex from '../database';
 import bcrypt from 'bcryptjs'; 
 
+interface Admin {
+  whatsapp: string
+}
 
 export default {
   async index(req:Request, res:Response, next:NextFunction){
@@ -32,5 +35,10 @@ export default {
     } catch (error) {
       next(error)
     }
+  },
+  async contact(req:Request, res:Response, next:NextFunction){
+    const admin = await knex<Admin>('admin').first();
+    const contact = admin?.whatsapp
+    return res.json({contact: contact})
   }
 }

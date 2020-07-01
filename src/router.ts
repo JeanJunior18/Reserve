@@ -10,6 +10,8 @@ const router = Router();
 
 
 router
+  .get('/contact', AdminController.contact)
+
   .post('/login', AuthController.login)
 
   .get('/admin', auth, AdminController.index)

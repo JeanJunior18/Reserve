@@ -7,7 +7,7 @@ export async function seed(knex: Knex): Promise<any> {
         .then(async () => {
             const hash = await bcrypt.hash('root', 5) 
             return knex("admin").insert([
-                { id: 1, name: "admin", email: 'super@user.com', password: hash },
+                { id: 1, name: "Gustavo", email: 'gustavobass@hotmail.com', password: hash , whatsapp: '99982524035'},
             ]);
         });
 };
