@@ -39,6 +39,6 @@ export default {
   async contact(req:Request, res:Response, next:NextFunction){
     const admin = await knex<Admin>('admin').first();
     const contact = admin?.whatsapp
-    return res.json({contact: contact})
+    return res.json(contact)
   }
 }

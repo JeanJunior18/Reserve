@@ -1,4 +1,4 @@
-import { Router } from 'express';
+import { Router, response } from 'express';
 import auth from './services/auth'
 
 import AdminController from './controllers/AdminController';
@@ -13,6 +13,7 @@ router
   .get('/contact', AdminController.contact)
 
   .post('/login', AuthController.login)
+  .get('/isauth', auth, (req, res)=>res.send('ok'))
 
   .get('/admin', auth, AdminController.index)
   .post('/admin', auth, AdminController.store)
@@ -20,6 +21,8 @@ router
   .get('/schedules', ScheduleController.index)
   .post('/schedules', auth, ScheduleController.store)
   .put('/schedules', ScheduleController.reserve)
+  .put('/schedules/clear', auth, ScheduleController.clear)
+  .delete('/schedules', ScheduleController.remove)
 
   .get('/services', ServiceController.index)
   .post('/services', auth, ServiceController.store)

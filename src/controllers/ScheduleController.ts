@@ -50,6 +50,41 @@ export default {
     } catch (error) {
       next(error);
     }
+  },
+  async clear(req:Request, res:Response, next:NextFunction){
+    try {
+      const { schedule_id } = req.body;
+
+      const trx = await knex.transaction();
+      
+      await trx('schedules')
+      .update({ name:null, whatsapp:null })
+      .where({ id: schedule_id })
+
+      await trx('schedules_service').del().where({schedule_id})
+      trx.commit()
+
+      return res.json()
+    } catch (error) {
+      next(error)
+    }
+  },
+  async remove(req:Request, res:Response, next:NextFunction){
+    try {
+      const { schedule_id } = req.body;
+
+      const trx = await knex.transaction();
+      
+      await trx('schedules_service').del().where({schedule_id})
+      
+      await trx('schedules').del().where({ id: schedule_id })
+
+      trx.commit()
+
+      return res.json()
+    } catch (error) {
+      next(error)
+    }
   }
 
 }
