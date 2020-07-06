@@ -2,6 +2,21 @@ import { Request, Response, NextFunction } from 'express'
 import knex from '../database';
 
 export default {
+  async show(req:Request, res:Response, next:NextFunction){
+    const { id } = req.params;
+    
+    // const schedule = await knex('schedules').where('id', id).first()
+
+    // if(!schedule)
+    //   return res.status(404).json({error: 'Schedule not found'})
+
+    const service = await knex('services')
+      .join('schedules_service', 'services.id', '=', 'schedules_service.service_id')
+      .where('schedules_service.schedule_id', id)
+    
+
+    return res.json(service)
+  },
   async index(req:Request, res:Response, next:NextFunction){
     try {
       const schedule = await knex('schedules')

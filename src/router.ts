@@ -18,6 +18,7 @@ router
   .get('/admin', auth, AdminController.index)
   .post('/admin', auth, AdminController.store)
 
+  .get('/schedules/:id', ScheduleController.show)
   .get('/schedules', ScheduleController.index)
   .post('/schedules', auth, ScheduleController.store)
   .put('/schedules', ScheduleController.reserve)
