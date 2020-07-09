@@ -22,7 +22,6 @@ export default (req:Request, res:Response, next:NextFunction) => {
       return res.status(401).json('Invalid Token');
     req.user = decoded;
 
-    console.log('authenticated');
     return next();
   })
 }

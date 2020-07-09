@@ -45,12 +45,14 @@ export default {
   async remove(req:Request, res:Response, next:NextFunction){
     try {
       const { user_id } = req.body;
-
+      console.log(user_id)
       await knex('admin')
       .where('id', user_id)
       .update('deleted_at', new Date())
+
+      return res.json()
     } catch (error) {
-      
+      next(error)    
     }
   }
 }

@@ -30,9 +30,9 @@ router
       whatsapp: Joi.string().required(),
     })
   }), auth, AdminController.store)
-  .delete('/admin',celebrate({
+  .delete('/admin', celebrate({
     [Segments.BODY]: Joi.object().keys({
-      user_id: Joi.string().required(),
+      user_id: Joi.number().required(),
     })
   }), auth, AdminController.remove)
 
