@@ -8,6 +8,7 @@ export async function up(knex: Knex): Promise<any> {
     table.string('email').unique().notNullable();
     table.string('password').notNullable();
     table.string('whatsapp').notNullable();
+    table.timestamp('deleted_at');
     table.timestamps(true, true);
   })
 }

@@ -42,25 +42,33 @@ export default {
     try {
       const { schedule_id, name, whatsapp, services } = req.body;
 
-      const trx = await knex.transaction();
-      
-      const updated = await trx('schedules')
-      .update({ name, whatsapp })
-      .where({ id: schedule_id })
-
-      const services_items = services
-      .map((service_id:number) => {
-        return {
-          schedule_id,
-          service_id
+      knex('schedules').where('id', schedule_id).first().then(async (response) => {
+        if(response.name !== null){
+          return res.status(401).json({error: 'Este horário já foi reservado'})
+        }
+        else{
+          const trx = await knex.transaction();
+          
+          const updated = await trx('schedules')
+          .update({ name, whatsapp })
+          .where({ id: schedule_id })
+    
+          const services_items = services
+          .map((service_id:number) => {
+            return {
+              schedule_id,
+              service_id
+            }
+          })
+    
+    
+          await trx('schedules_service').insert(services_items)
+          trx.commit()
+    
+          return res.json(updated)
         }
       })
 
-
-      await trx('schedules_service').insert(services_items)
-      trx.commit()
-
-      return res.json(updated)
 
     } catch (error) {
       next(error);

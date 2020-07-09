@@ -4,7 +4,7 @@ import knex from '../database';
 export default {
   async index(req:Request, res:Response, next:NextFunction){
     try {
-      const services = await knex('services');
+      const services = await knex('services').where('deleted_at', null);
 
       return res.json(services);
     } catch (error) {

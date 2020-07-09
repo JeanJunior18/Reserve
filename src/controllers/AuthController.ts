@@ -20,7 +20,7 @@ export default {
     try {
       const {email, password} = req.body;
       
-      const user = await knex<User>('admin').where({email}).first()
+      const user = await knex<User>('admin').where({email}).where('deleted_at', null).first()
       
       if(!user)
         return res.status(401).json({error: 'Usuário não encontrado'})
@@ -33,6 +33,9 @@ export default {
         req.authorization = token
         return res.json(token)
       }
+      else
+        return res.status(401).json({error: 'Incorrect Password'})
+      
 
     } catch (error) {
       next(error)

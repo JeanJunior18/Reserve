@@ -17,6 +17,7 @@ router
 
   .get('/admin', auth, AdminController.index)
   .post('/admin', auth, AdminController.store)
+  .delete('/admin', auth, AdminController.remove)
 
   .get('/schedules/:id', ScheduleController.show)
   .get('/schedules', ScheduleController.index)

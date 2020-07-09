@@ -9,7 +9,7 @@ interface Admin {
 export default {
   async index(req:Request, res:Response, next:NextFunction){
     try {
-      const usersAdmin = await knex('admin');
+      const usersAdmin = await knex('admin').where('deleted_at', null);
       return res.json(usersAdmin);
     } catch (error) {
       next(error)
@@ -17,7 +17,7 @@ export default {
   },
   async store(req:Request, res:Response, next:NextFunction){
     try {
-      const { name, email, password } = req.body;
+      const { name, email, password, whatsapp } = req.body;
 
       if((await knex('admin').where({email})).length)
         return res.status(403).json({error: "Email já cadastrado"})
@@ -27,6 +27,7 @@ export default {
       await knex('admin').insert({ 
         name,
         email,
+        whatsapp,
         password: hash,
       })
 
@@ -40,5 +41,16 @@ export default {
     const admin = await knex<Admin>('admin').first();
     const contact = admin?.whatsapp
     return res.json(contact)
+  },
+  async remove(req:Request, res:Response, next:NextFunction){
+    try {
+      const { user_id } = req.body;
+
+      await knex('admin')
+      .where('id', user_id)
+      .update('deleted_at', new Date())
+    } catch (error) {
+      
+    }
   }
 }
