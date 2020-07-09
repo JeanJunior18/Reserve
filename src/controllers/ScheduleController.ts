@@ -43,7 +43,10 @@ export default {
       const { schedule_id, name, whatsapp, services } = req.body;
 
       knex('schedules').where('id', schedule_id).first().then(async (response) => {
-        if(response.name !== null){
+        if(!response){
+          return res.status(400).json({error: 'Horário não está mais disponível'});
+        }
+        else if(response.name !== null){
           return res.status(401).json({error: 'Este horário já foi reservado'})
         }
         else{
@@ -51,7 +54,7 @@ export default {
           
           const updated = await trx('schedules')
           .update({ name, whatsapp })
-          .where({ id: schedule_id })
+          .where('id', schedule_id)
     
           const services_items = services
           .map((service_id:number) => {
@@ -62,10 +65,11 @@ export default {
           })
     
     
-          await trx('schedules_service').insert(services_items)
-          trx.commit()
+          trx('schedules_service').insert(services_items).then(()=>{
+            trx.commit()
+            return res.json(updated)
+          }).catch(console.log)
     
-          return res.json(updated)
         }
       })
 
