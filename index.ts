@@ -16,4 +16,4 @@ app
     res.json({ error: error.message });
   })
 
-  .listen(3333, ()=>console.log('Running on port 3333'));
+  .listen(3333 || process.env.PORT, ()=>console.log('Running'));
