@@ -4,7 +4,6 @@
   "main": "index.ts",
   "license": "MIT",
   "scripts": {
-    "prestart": "knex migrate:latest",
     "start": "ts-node index.ts",
     "dev": "ts-node-dev index.ts",
     "migrate": "knex migrate:latest",
