@@ -4,9 +4,9 @@
   "main": "index.ts",
   "license": "MIT",
   "scripts": {
-    "start": "ts-node index.ts",
+    "start": "NODE_ENV=production ts-node index.ts",
     "dev": "ts-node-dev index.ts",
-    "migrate": "knex migrate:latest",
+    "migrate": "NODE_ENV=production knex migrate:latest",
     "rollback": "knex migrate:rollback",
     "refresh": "knex migrate:rollback && knex migrate:latest && knex seed:run"
   },
