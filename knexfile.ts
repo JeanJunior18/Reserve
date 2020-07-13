@@ -1,3 +1,4 @@
+require('dotenv/config');
 import { resolve } from 'path'
 
 module.exports = {
@@ -15,4 +16,14 @@ module.exports = {
     },
     useNullAsDefault: true,
   },
+  production: {
+    client: 'pg',
+    connection: process.env.DATABASE_CONNECT_URI,
+    migrations: {
+      directory: resolve(__dirname, 'src', 'database', 'migrations')
+    },
+    seeds: {
+      directory: resolve(__dirname, 'src', 'database', 'seeds')
+    },
+  }
 };
