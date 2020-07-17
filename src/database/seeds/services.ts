@@ -8,7 +8,6 @@ export async function seed(knex: Knex): Promise<any> {
             return knex("services").insert([
                 { id: 1, service_name: "Corte Cabelo", price: 10 },
                 { id: 2, service_name: "Barba", price: 5 },
-                { id: 3, service_name: "Tingemento", price: 20 },
                 { id: 4, service_name: "Sobrancelha", price: 2 },
             ]);
         });

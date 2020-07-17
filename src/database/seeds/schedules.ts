@@ -9,12 +9,7 @@ export async function seed(knex: Knex): Promise<any> {
                 { id: 1, hour: new Date("December 12, 2020 08:00:00") },
                 { id: 2, hour: new Date("December 12, 2020 09:00:00") },
                 { id: 3, hour: new Date("December 12, 2020 10:00:00") },
-                { 
-                    id: 4, 
-                    hour: new Date("December 12, 2020 11:00:00"),
-                    name: "Jean Junior",
-                    whatsapp: "00000000"
-                },
+
             ]);
         });
 };
