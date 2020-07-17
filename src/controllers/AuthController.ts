@@ -34,7 +34,7 @@ export default {
         return res.json(token)
       }
       else
-        return res.status(401).json({error: 'Incorrect Password'})
+        return res.status(401).json({error: 'Senha Incorreta'})
       
 
     } catch (error) {
