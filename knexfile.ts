@@ -18,7 +18,15 @@ module.exports = {
   },
   production: {
     client: 'pg',
-    connection: process.env.DATABASE_CONNECT_URI,
+    connection: process.env.DATABASE_CONNECT_URL,
+    // {
+    //   host: process.env.DATABASE_CONNECT_HOST,
+    //   user: process.env.DATABASE_CONNECT_USER,
+    //   password: process.env.DATABASE_CONNECT_PASS,
+    //   // port: 3306,
+    //   database: process.env.DATABASE_CONNECT_DATABASE,
+    // },
+    // acquireConnectionTimeout: 30000,
     migrations: {
       directory: resolve(__dirname, 'src', 'database', 'migrations')
     },
